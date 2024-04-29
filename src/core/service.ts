@@ -3,21 +3,24 @@ import {
   BEFORE_PATH_REGX,
   COMMON_REQUEST_METHODS,
   DEFAULT_CACHE_CONFIG,
+  DEFAULT_CACHE_STORE,
+  DEFAULT_IDEMPOTENCE,
+  DEFAULT_IDEMPOTENCE_TIMEOUT,
   DEFAULT_MAX_RETRIES,
   GET_REGX,
 } from "../constants";
 import { CacheTypeEnum } from "../enums";
 import { IBaseCache, ServiceCallOptions, ServiceOptions } from "../types";
-import { getCacheKey } from "../utils";
+import { getCacheKey, getMd5Key } from "../utils";
 import { cacheMap } from "./cache";
 
 class Service {
   options: ServiceOptions;
-  cacheAdaptor: IBaseCache = cacheMap[CacheTypeEnum.MEMORY];
+  cacheStore: IBaseCache = DEFAULT_CACHE_STORE;
   constructor(options: ServiceOptions) {
     this.options = options;
-    if (options.cache?.type) {
-      this.cacheAdaptor = cacheMap[options.cache.type];
+    if (options.cache?.enable && options.cache?.type) {
+      this.cacheStore = cacheMap[options.cache.type];
     }
   }
 
@@ -26,17 +29,30 @@ class Service {
     params,
     maxRetries = this.options.maxRetries || DEFAULT_MAX_RETRIES,
     cache = this.options.cache || DEFAULT_CACHE_CONFIG,
+    idempotence = this.options.idempotence || DEFAULT_IDEMPOTENCE,
     options = {},
   }: ServiceCallOptions) {
+    let cacheStore = this.cacheStore;
+
     // 接口缓存 - 获取缓存
     if (cache.enable) {
       if (cache.type) {
-        this.cacheAdaptor = cacheMap[cache.type];
+        cacheStore = cacheMap[cache.type];
       }
 
       const cacheKey = getCacheKey(apiName, options.method, params);
-      if (this.cacheAdaptor.has(cacheKey)) {
-        return this.cacheAdaptor.get(cacheKey);
+      if (cacheStore.has(cacheKey)) {
+        return cacheStore.get(cacheKey);
+      }
+    }
+
+    // 接口幂等性
+    if (idempotence) {
+      const cacheStore = cacheMap[CacheTypeEnum.MEMORY];
+      const md5 = getMd5Key(apiName, options.method, params);
+      const cacheKey = md5.toString();
+      if (cacheStore.has(cacheKey)) {
+        return cacheStore.get(cacheKey);
       }
     }
 
@@ -68,7 +84,15 @@ class Service {
       // 接口缓存 - 设置缓存
       if (cache.enable) {
         const cacheKey = getCacheKey(apiName, options.method, params);
-        this.cacheAdaptor.set(cacheKey, res);
+        cacheStore.set(cacheKey, res);
+      }
+
+      // 接口幂等性 - 设置缓存
+      if (idempotence) {
+        const cacheStore = cacheMap[CacheTypeEnum.MEMORY];
+        const md5 = getMd5Key(apiName, options.method, params);
+        const cacheKey = md5.toString();
+        cacheStore.set(cacheKey, res, DEFAULT_IDEMPOTENCE_TIMEOUT);
       }
 
       return res;

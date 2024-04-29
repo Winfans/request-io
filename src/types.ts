@@ -6,18 +6,20 @@ export type CacheConfig = Partial<{
   type: `${CacheTypeEnum}`;
 }>;
 
-export interface ServiceOptions {
-  baseUrl: string;
-  http: IBaseRequest<IBaseError>;
+export interface CommonOptions {
   maxRetries?: number;
   cache?: CacheConfig;
+  idempotence?: boolean; // 幂等性
 }
 
-export interface ServiceCallOptions {
+export interface ServiceOptions extends CommonOptions {
+  baseUrl: string;
+  http: IBaseRequest<IBaseError>;
+}
+
+export interface ServiceCallOptions extends CommonOptions {
   apiName: string;
   params?: Record<string, unknown>;
-  maxRetries?: number;
-  cache?: CacheConfig;
   options?: Partial<
     {
       method: string;
