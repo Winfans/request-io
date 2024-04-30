@@ -6,9 +6,6 @@
   "author": "Winfans",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.js",
   "files": [
     "dist",
     "README*"

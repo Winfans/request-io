@@ -5,16 +5,12 @@
   "keywords": [],
   "author": "Winfans",
   "license": "MIT",
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.js",
   "files": [
     "dist",
     "README*"
   ],
   "dependencies": {
     "axios": "^1.6.8",
-    "@request-io/core": "workspace:*"
+    "@request-io/core": "workspace:core"
   }
 }
