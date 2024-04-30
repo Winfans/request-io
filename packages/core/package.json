@@ -1,0 +1,23 @@
+{
+  "name": "@request-io/core",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "author": "Winfans",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.js",
+  "files": [
+    "dist",
+    "README*"
+  ],
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "store2": "^2.14.3"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2"
+  }
+}

@@ -1,10 +1,10 @@
-import { IBaseError, IBaseRequest, IBaseRequestOptions } from "../types";
+import { IBaseRequest, IBaseRequestOptions } from "@request-io/core";
 
 /**
  * Fetch request
  * 目前仅支持 json 格式的请求
  */
-export class FetchRequest<E = IBaseError> implements IBaseRequest<E> {
+export class FetchRequest implements IBaseRequest {
   controller: AbortController | null = null;
   async request<T>(options: IBaseRequestOptions) {
     const { method, url, abort, params = {}, data } = options;

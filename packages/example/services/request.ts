@@ -1,14 +1,9 @@
-import { Service } from "../core";
-import { AxiosRequest, FetchRequest } from "../request";
-
-interface IBaseError {
-  code: number;
-  error_msg: string;
-}
+import { Service } from "@request-io/core";
+import { AxiosRequest } from "@request-io/request";
 
 const BASE_URL = "https://api.ai.xg.wffanshao.top";
 
-const http = new AxiosRequest<IBaseError>();
+const http = new AxiosRequest();
 // const http = new FetchRequest<IBaseError>();
 
 const apiService = new Service({

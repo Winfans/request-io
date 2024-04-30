@@ -1,2 +1,2 @@
 export * from "./service";
-export * from "./cache";
+export * from "./types";

@@ -15,22 +15,14 @@ export interface CommonOptions {
 
 export interface ServiceOptions extends CommonOptions {
   baseUrl: string;
-  http: IBaseRequest<IBaseError>;
+  http: IBaseRequest;
 }
 
 export interface ServiceCallOptions extends CommonOptions {
   apiName: string;
   params?: Record<string, unknown>;
-  options?: Partial<
-    {
-      method: string;
-    } & Record<string, unknown>
-  >;
-}
-
-export interface IBaseError {
-  code: number;
-  msg: string;
+  method?: string;
+  options?: Record<string, unknown>;
 }
 
 export type IBaseRequestOptions = { method: string; url: string } & Partial<{
@@ -40,8 +32,8 @@ export type IBaseRequestOptions = { method: string; url: string } & Partial<{
   [key: string]: unknown;
 }>;
 
-export interface IBaseRequest<E = IBaseError> {
-  request: <T>(options: IBaseRequestOptions) => Promise<T extends E ? E : T>;
+export interface IBaseRequest {
+  request: <T>(options: IBaseRequestOptions) => Promise<T>;
 }
 
 export interface IBaseCache {

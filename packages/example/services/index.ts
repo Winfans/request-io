@@ -4,18 +4,17 @@ interface IBaseResult<T> {
   code: number;
   success: boolean;
   data: T;
+  msg?: string;
 }
+
 export const testGet = (params: { content: string }) => {
-  return apiService.call<
+  return apiService.get<
     IBaseResult<{
       content: string;
     }>
   >({
     apiName: "/test",
     params,
-    options: {
-      method: "GET",
-    },
   });
 };
 
@@ -27,9 +26,7 @@ export const testPost = (params: { content: string }) => {
   >({
     apiName: "/test",
     params,
-    options: {
-      method: "POST",
-    },
+    method: "POST",
   });
 };
 
@@ -42,8 +39,6 @@ export const testError = (params: { content: string }) => {
     apiName: "/test/error",
     params,
     maxRetries: 5,
-    options: {
-      method: "GET",
-    },
+    method: "GET",
   });
 };

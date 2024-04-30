@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "example", "rollup.config.ts"],
+  "include": ["packages", "rollup.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

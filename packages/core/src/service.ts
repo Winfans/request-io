@@ -8,10 +8,10 @@ import {
   DEFAULT_IDEMPOTENCE_TIMEOUT,
   DEFAULT_MAX_RETRIES,
   GET_REGX,
-} from "../constants";
-import { CacheTypeEnum } from "../enums";
-import { IBaseCache, ServiceCallOptions, ServiceOptions } from "../types";
-import { getCacheKey, getMd5Key } from "../utils";
+} from "./constants";
+import { CacheTypeEnum } from "./enums";
+import { IBaseCache, ServiceCallOptions, ServiceOptions } from "./types";
+import { getCacheKey, getMd5Key } from "./utils";
 import { cacheMap } from "./cache";
 
 class Service {
@@ -27,12 +27,13 @@ class Service {
   async call<T>({
     apiName,
     params,
+    method = "POST",
     maxRetries = this.options.maxRetries || DEFAULT_MAX_RETRIES,
     cache = this.options.cache || DEFAULT_CACHE_CONFIG,
     idempotence = this.options.idempotence || DEFAULT_IDEMPOTENCE,
     abort = this.options.abort || DEFAULT_ABORT,
     options = {},
-  }: ServiceCallOptions) {
+  }: ServiceCallOptions): Promise<T> {
     let cacheStore = this.cacheStore;
 
     // 接口缓存 - 获取缓存
@@ -41,19 +42,19 @@ class Service {
         cacheStore = cacheMap[cache.type];
       }
 
-      const cacheKey = getCacheKey(apiName, options.method, params);
+      const cacheKey = getCacheKey(apiName, method, params);
       if (cacheStore.has(cacheKey)) {
-        return cacheStore.get(cacheKey);
+        return cacheStore.get(cacheKey) as T;
       }
     }
 
     // 接口幂等性
     if (idempotence) {
       const cacheStore = cacheMap[CacheTypeEnum.MEMORY];
-      const md5 = getMd5Key(apiName, options.method, params);
+      const md5 = getMd5Key(apiName, method, params);
       const cacheKey = md5.toString();
       if (cacheStore.has(cacheKey)) {
-        return cacheStore.get(cacheKey);
+        return cacheStore.get(cacheKey) as T;
       }
     }
 
@@ -63,7 +64,6 @@ class Service {
       AFTER_PATH_REGX,
       ""
     )}${beforePath}${apiName}`;
-    const { method = "POST" } = options;
     const requestOptions = {
       method,
       url: requestUrl,
@@ -85,18 +85,17 @@ class Service {
 
       // 接口缓存 - 设置缓存
       if (cache.enable) {
-        const cacheKey = getCacheKey(apiName, options.method, params);
+        const cacheKey = getCacheKey(apiName, method, params);
         cacheStore.set(cacheKey, res);
       }
 
       // 接口幂等性 - 设置缓存
       if (idempotence) {
         const cacheStore = cacheMap[CacheTypeEnum.MEMORY];
-        const md5 = getMd5Key(apiName, options.method, params);
+        const md5 = getMd5Key(apiName, method, params);
         const cacheKey = md5.toString();
         cacheStore.set(cacheKey, res, DEFAULT_IDEMPOTENCE_TIMEOUT);
       }
-
       return res;
     } catch (e) {
       // 接口重试
@@ -104,6 +103,7 @@ class Service {
         return this.call<T>({
           apiName,
           params,
+          method,
           maxRetries: maxRetries - 1,
           options,
         });
@@ -113,13 +113,39 @@ class Service {
     }
   }
 
-  // handleError(err: E) {
-  //   const { code, msg } = err;
-  //   const errorText = `${HttpCodeError[code] || msg}`;
-  //   return {
-  //     code: code,
-  //     msg: errorText,
-  //   };
+  async get<T>(options: ServiceCallOptions): Promise<T> {
+    return this.call({
+      ...options,
+      method: "GET",
+    });
+  }
+  async post<T>(options: ServiceCallOptions): Promise<T> {
+    return this.call({
+      ...options,
+      method: "POST",
+    });
+  }
+  async delete<T>(options: ServiceCallOptions): Promise<T> {
+    return this.call({
+      ...options,
+      method: "DELETE",
+    });
+  }
+  async put<T>(options: ServiceCallOptions): Promise<T> {
+    return this.call({
+      ...options,
+      method: "PUT",
+    });
+  }
+  async patch<T>(options: ServiceCallOptions): Promise<T> {
+    return this.call({
+      ...options,
+      method: "PUT",
+    });
+  }
+
+  // static handleError(code: number) {
+  //   return HttpCodeError[code];
   // }
 }
 

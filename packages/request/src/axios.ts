@@ -1,6 +1,6 @@
 import axios, { CancelTokenSource } from "axios";
-import { IBaseError, IBaseRequest, IBaseRequestOptions } from "../types";
-import { TIMEOUT } from "../constants";
+import { IBaseRequest, IBaseRequestOptions } from "@request-io/core";
+import { TIMEOUT } from "./constants";
 
 const http = axios.create({
   timeout: TIMEOUT,
@@ -9,12 +9,12 @@ const http = axios.create({
   },
 });
 
-export class AxiosRequest<E = IBaseError> implements IBaseRequest<E> {
+export class AxiosRequest implements IBaseRequest {
   private cancelTokenSource: CancelTokenSource | null = null;
-  async request<T>(options: IBaseRequestOptions) {
+  async request<T>(options: IBaseRequestOptions): Promise<T> {
     const { abort, ...rest } = options;
 
-    let requestOptions = {
+    const requestOptions = {
       ...rest,
     };
 
@@ -23,14 +23,13 @@ export class AxiosRequest<E = IBaseError> implements IBaseRequest<E> {
         this.cancelTokenSource.cancel();
       }
       this.cancelTokenSource = axios.CancelToken.source();
-      requestOptions = {
-        ...requestOptions,
+      Object.assign(requestOptions, {
         cancelToken: this.cancelTokenSource.token,
-      };
+      });
     }
 
     // try {
-    const { data } = await http.request<T extends E ? E : T>(requestOptions);
+    const { data } = await http.request<T>(requestOptions);
     return data;
     // } catch (e) {
     //   console.log("e", e);
