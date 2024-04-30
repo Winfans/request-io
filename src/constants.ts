@@ -1,4 +1,3 @@
-import { cacheMap } from "./core";
 import { CacheTypeEnum } from "./enums";
 
 // export const HttpCodeError: Record<number, string> = {
@@ -22,8 +21,6 @@ export const TIMEOUT = 1000 * 30;
 
 export const DEFAULT_MAX_RETRIES = 0;
 
-export const DEFAULT_CACHE_STORE = cacheMap[CacheTypeEnum.MEMORY];
-
 export const DEFAULT_CACHE_CONFIG = {
   enable: false,
   type: CacheTypeEnum.MEMORY as const,
@@ -31,3 +28,5 @@ export const DEFAULT_CACHE_CONFIG = {
 
 export const DEFAULT_IDEMPOTENCE = false;
 export const DEFAULT_IDEMPOTENCE_TIMEOUT = 5 * 60 * 1000;
+
+export const DEFAULT_ABORT = false;

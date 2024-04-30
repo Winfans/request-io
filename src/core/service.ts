@@ -2,8 +2,8 @@ import {
   AFTER_PATH_REGX,
   BEFORE_PATH_REGX,
   COMMON_REQUEST_METHODS,
+  DEFAULT_ABORT,
   DEFAULT_CACHE_CONFIG,
-  DEFAULT_CACHE_STORE,
   DEFAULT_IDEMPOTENCE,
   DEFAULT_IDEMPOTENCE_TIMEOUT,
   DEFAULT_MAX_RETRIES,
@@ -16,7 +16,7 @@ import { cacheMap } from "./cache";
 
 class Service {
   options: ServiceOptions;
-  cacheStore: IBaseCache = DEFAULT_CACHE_STORE;
+  cacheStore: IBaseCache = cacheMap[CacheTypeEnum.MEMORY];
   constructor(options: ServiceOptions) {
     this.options = options;
     if (options.cache?.enable && options.cache?.type) {
@@ -30,6 +30,7 @@ class Service {
     maxRetries = this.options.maxRetries || DEFAULT_MAX_RETRIES,
     cache = this.options.cache || DEFAULT_CACHE_CONFIG,
     idempotence = this.options.idempotence || DEFAULT_IDEMPOTENCE,
+    abort = this.options.abort || DEFAULT_ABORT,
     options = {},
   }: ServiceCallOptions) {
     let cacheStore = this.cacheStore;
@@ -66,6 +67,7 @@ class Service {
     const requestOptions = {
       method,
       url: requestUrl,
+      abort,
       ...options,
     };
 

@@ -10,6 +10,7 @@ export interface CommonOptions {
   maxRetries?: number;
   cache?: CacheConfig;
   idempotence?: boolean; // 幂等性
+  abort?: boolean; // 中断请求
 }
 
 export interface ServiceOptions extends CommonOptions {
@@ -33,8 +34,9 @@ export interface IBaseError {
 }
 
 export type IBaseRequestOptions = { method: string; url: string } & Partial<{
-  params?: Record<string, never>;
-  data?: Record<string, never>;
+  params: Record<string, never>;
+  data: Record<string, never>;
+  abort: boolean;
   [key: string]: unknown;
 }>;
 
