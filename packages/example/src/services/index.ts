@@ -15,6 +15,12 @@ export const testGet = (params: { content: string }) => {
   >({
     apiName: '/test',
     params,
+    // maxRetries: 5,
+    // cache: {
+    //   enable: true,
+    // },
+    // abort: true,
+    // idempotence: true,
   });
 };
 
