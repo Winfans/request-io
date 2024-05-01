@@ -4,19 +4,38 @@
   "scripts": {
     "build": "rollup -c ./rollup.config.ts --configPlugin typescript",
     "dev": "pnpm -C packages/example exec -- cross-env NODE_ENV=development vite",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write",
+      "git add ."
+    ],
+    "*.{css,less,sass,scss}": [
+      "git add ."
+    ]
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
+    "commitlint": "^19.3.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "rollup": "^4.16.4",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-terser": "^7.0.2",

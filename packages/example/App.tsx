@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import "./App.css";
-import { testError, testGet, testPost } from "./services";
+import { useEffect } from 'react';
+import './App.css';
+import { testGet } from './services';
 
 function App() {
   useEffect(() => {
-    testGet({ content: "testGet" }).then((res) => {
+    testGet({ content: 'testGet' }).then((res) => {
       console.log(res);
     });
   }, []);
   const abortHandler = () => {
-    testGet({ content: "testGet" }).then((res) => {
+    testGet({ content: 'testGet' }).then((res) => {
       console.log(res);
     });
   };
