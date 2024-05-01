@@ -1,4 +1,4 @@
-import { CacheTypeEnum } from "./enums";
+import { CacheTypeEnum } from './enums';
 
 export type CacheConfig = Partial<{
   enable: boolean;

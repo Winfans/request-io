@@ -1,4 +1,4 @@
-import { IBaseRequest, IBaseRequestOptions } from "@request-io/core";
+import { IBaseRequest, IBaseRequestOptions } from '@request-io/core';
 
 /**
  * Fetch request
@@ -11,12 +11,12 @@ export class FetchRequest implements IBaseRequest {
 
     let finalUrl = url;
     const paramsStr = new URLSearchParams(params).toString();
-    finalUrl += finalUrl.includes("?") ? `&${paramsStr}` : `?${paramsStr}`;
+    finalUrl += finalUrl.includes('?') ? `&${paramsStr}` : `?${paramsStr}`;
 
     const requestOptions = {
       method: method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     };

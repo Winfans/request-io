@@ -1,6 +1,6 @@
-import { CacheTypeEnum } from "./enums";
-import { IBaseCache, IBaseCacheValue } from "./types";
-import store from "store2";
+import { CacheTypeEnum } from './enums';
+import { IBaseCache, IBaseCacheValue } from './types';
+import store from 'store2';
 
 export class MemoryCache implements IBaseCache {
   private cache: Map<string, IBaseCacheValue> = new Map();

@@ -1,11 +1,11 @@
-import axios, { CancelTokenSource } from "axios";
-import { IBaseRequest, IBaseRequestOptions } from "@request-io/core";
-import { TIMEOUT } from "./constants";
+import axios, { CancelTokenSource } from 'axios';
+import { IBaseRequest, IBaseRequestOptions } from '@request-io/core';
+import { TIMEOUT } from './constants';
 
 const http = axios.create({
   timeout: TIMEOUT,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 

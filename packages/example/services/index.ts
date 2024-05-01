@@ -1,4 +1,4 @@
-import apiService from "./request";
+import apiService from './request';
 
 interface IBaseResult<T> {
   code: number;
@@ -13,7 +13,7 @@ export const testGet = (params: { content: string }) => {
       content: string;
     }>
   >({
-    apiName: "/test",
+    apiName: '/test',
     params,
   });
 };
@@ -24,9 +24,9 @@ export const testPost = (params: { content: string }) => {
       content: string;
     }>
   >({
-    apiName: "/test",
+    apiName: '/test',
     params,
-    method: "POST",
+    method: 'POST',
   });
 };
 
@@ -36,9 +36,9 @@ export const testError = (params: { content: string }) => {
       content: string;
     }>
   >({
-    apiName: "/test/error",
+    apiName: '/test/error',
     params,
     maxRetries: 5,
-    method: "GET",
+    method: 'GET',
   });
 };

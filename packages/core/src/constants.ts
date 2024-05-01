@@ -1,4 +1,4 @@
-import { CacheTypeEnum } from "./enums";
+import { CacheTypeEnum } from './enums';
 
 // export const HttpCodeError: Record<number, string> = {
 //   [400]: "Bad Request",
