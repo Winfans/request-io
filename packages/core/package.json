@@ -16,6 +16,7 @@
     "dist",
     "README*"
   ],
+  "private": false,
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
