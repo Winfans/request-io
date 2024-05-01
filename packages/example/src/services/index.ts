@@ -1,6 +1,6 @@
-import apiService from './request';
+import { apiService } from './request';
 
-interface IBaseResult<T> {
+export interface IBaseResult<T> {
   code: number;
   success: boolean;
   data: T;
@@ -10,11 +10,26 @@ interface IBaseResult<T> {
 export const testGet = (params: { content: string }) => {
   return apiService.get<
     IBaseResult<{
-      content: string;
+      message: string;
     }>
   >({
     apiName: '/test',
     params,
+  });
+};
+
+export const testGetWithMemory = (params: { content: string; type: number }) => {
+  return apiService.get<
+    IBaseResult<{
+      message: string;
+    }>
+  >({
+    apiName: '/test',
+    params,
+    cache: {
+      enable: true,
+      type: 'memory',
+    },
   });
 };
 
@@ -42,3 +57,5 @@ export const testError = (params: { content: string }) => {
     method: 'GET',
   });
 };
+
+export * from './request';

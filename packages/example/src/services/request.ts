@@ -1,4 +1,4 @@
-import { Service } from '@request-io/core';
+import { Service, getCacheKey } from '@request-io/core';
 import { AxiosRequest } from '@request-io/request';
 
 const BASE_URL = 'https://api.ai.xg.wffanshao.top';
@@ -11,4 +11,4 @@ const apiService = new Service({
   http: http,
 });
 
-export default apiService;
+export { apiService, http, getCacheKey };

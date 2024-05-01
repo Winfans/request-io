@@ -8,11 +8,11 @@ import {
   DEFAULT_IDEMPOTENCE_TIMEOUT,
   DEFAULT_MAX_RETRIES,
   GET_REGX,
-} from "./constants";
-import { CacheTypeEnum } from "./enums";
-import { IBaseCache, ServiceCallOptions, ServiceOptions } from "./types";
-import { getCacheKey, getMd5Key } from "./utils";
-import { cacheMap } from "./cache";
+} from './constants';
+import { CacheTypeEnum } from './enums';
+import { IBaseCache, ServiceCallOptions, ServiceOptions } from './types';
+import { getCacheKey, getMd5Key } from './utils';
+import { cacheMap } from './cache';
 
 class Service {
   options: ServiceOptions;
@@ -27,7 +27,7 @@ class Service {
   async call<T>({
     apiName,
     params,
-    method = "POST",
+    method = 'POST',
     maxRetries = this.options.maxRetries || DEFAULT_MAX_RETRIES,
     cache = this.options.cache || DEFAULT_CACHE_CONFIG,
     idempotence = this.options.idempotence || DEFAULT_IDEMPOTENCE,
@@ -59,11 +59,8 @@ class Service {
     }
 
     const { baseUrl, http } = this.options;
-    const beforePath = BEFORE_PATH_REGX.test(apiName) ? "" : "/";
-    const requestUrl = `${baseUrl.replace(
-      AFTER_PATH_REGX,
-      ""
-    )}${beforePath}${apiName}`;
+    const beforePath = BEFORE_PATH_REGX.test(apiName) ? '' : '/';
+    const requestUrl = `${baseUrl.replace(AFTER_PATH_REGX, '')}${beforePath}${apiName}`;
     const requestOptions = {
       method,
       url: requestUrl,
@@ -116,31 +113,31 @@ class Service {
   async get<T>(options: ServiceCallOptions): Promise<T> {
     return this.call({
       ...options,
-      method: "GET",
+      method: 'GET',
     });
   }
   async post<T>(options: ServiceCallOptions): Promise<T> {
     return this.call({
       ...options,
-      method: "POST",
+      method: 'POST',
     });
   }
   async delete<T>(options: ServiceCallOptions): Promise<T> {
     return this.call({
       ...options,
-      method: "DELETE",
+      method: 'DELETE',
     });
   }
   async put<T>(options: ServiceCallOptions): Promise<T> {
     return this.call({
       ...options,
-      method: "PUT",
+      method: 'PUT',
     });
   }
   async patch<T>(options: ServiceCallOptions): Promise<T> {
     return this.call({
       ...options,
-      method: "PUT",
+      method: 'PUT',
     });
   }
 

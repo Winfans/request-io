@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './App.css';
-import { testGet } from './services';
+import { testGet } from './src/services';
 
 function App() {
   useEffect(() => {
