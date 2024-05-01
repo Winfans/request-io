@@ -2,7 +2,13 @@
   "name": "@request-io/core",
   "version": "0.1.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "request",
+    "http",
+    "ajax",
+    "fetch",
+    "axios"
+  ],
   "author": "Winfans",
   "license": "MIT",
   "type": "module",
@@ -10,6 +16,16 @@
     "dist",
     "README*"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Winfans/request-io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Winfans/request-io/issues"
+  },
   "dependencies": {
     "crypto-js": "^4.2.0",
     "store2": "^2.14.3"
