@@ -6,7 +6,7 @@
     "dev": "pnpm -C packages/example exec -- cross-env NODE_ENV=development vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "version": "pnpm changeset version",
-    "publish": "pnpm publish --filter ./packages/*",
+    "publish:prod": "pnpm publish --filter ./packages/*",
     "test": "jest",
     "prepare": "husky"
   },
