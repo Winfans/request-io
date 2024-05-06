@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@request-io/example",
+  "name": "@request-client/example",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
