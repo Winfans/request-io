@@ -1,5 +1,5 @@
-import { Service, getCacheKey } from '@request-io/core';
-import { AxiosRequest } from '@request-io/request';
+import { Service, getCacheKey } from '@request-client/core';
+import { AxiosRequest } from '@request-client/request';
 
 const BASE_URL = 'https://api.ai.xg.wffanshao.top';
 

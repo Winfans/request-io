@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
-    "@request-io/core": "workspace:core"
+    "@request-client/core": "workspace:core"
   }
 }

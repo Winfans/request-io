@@ -1,17 +1,20 @@
 ## Introduction
+
 一个与技术栈无关的请求库，支持接口缓存、幂等性、重试、竞态处理以及多种基础请求方案
+
 ## Quick Start
 
 ### Installation
+
 ```bash
-pnpm i @request-io/core @request-io/request
+pnpm i @request-client/core @request-client/request
 ```
 
 ### Usage
 
 ```typescript
-import { Service } from '@request-io/core';
-import { AxiosRequest } from '@request-io/request';
+import { Service } from '@request-client/core';
+import { AxiosRequest } from '@request-client/request';
 
 const BASE_URL = 'https://xxxxxxxxxxxxxxxx';
 
@@ -48,8 +51,5 @@ const testGet = (params: { content: string }) => {
 
 testGet({
   content: 'testGet',
-})
+});
 ```
-
-
-

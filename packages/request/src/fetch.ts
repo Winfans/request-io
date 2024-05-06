@@ -1,4 +1,4 @@
-import { IBaseRequest, IBaseRequestOptions } from '@request-io/core';
+import { IBaseRequest, IBaseRequestOptions } from '@request-client/core';
 
 /**
  * Fetch request

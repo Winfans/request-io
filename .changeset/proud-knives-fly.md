@@ -1,6 +1,6 @@
 ---
-"@request-io/core": major
-"@request-io/request": major
+'@request-client/core': major
+'@request-client/request': major
 ---
 
 First version

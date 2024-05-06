@@ -4,8 +4,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@request-io/core": "workspace:core",
-    "@request-io/request": "workspace:request"
+    "@request-client/core": "workspace:core",
+    "@request-client/request": "workspace:request"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -1,5 +1,5 @@
 import axios, { CancelTokenSource } from 'axios';
-import { IBaseRequest, IBaseRequestOptions } from '@request-io/core';
+import { IBaseRequest, IBaseRequestOptions } from '@request-client/core';
 import { TIMEOUT } from './constants';
 
 const http = axios.create({
