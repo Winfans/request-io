@@ -21,6 +21,10 @@
       "git add ."
     ]
   },
+  "dependencies": {
+    "@request-client/core": "link:packages/core",
+    "@request-client/request": "link:packages/request"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.3.0",

@@ -1,6 +1,6 @@
 {
   "name": "@request-client/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "keywords": [
     "request",
@@ -12,6 +12,7 @@
   "author": "Winfans",
   "license": "MIT",
   "type": "module",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "README*"
