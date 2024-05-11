@@ -1,16 +1,22 @@
 import axios, { CancelTokenSource } from 'axios';
 import { IBaseRequest, IBaseRequestOptions } from '@request-client/core';
 import { TIMEOUT } from './constants';
-
-const http = axios.create({
-  timeout: TIMEOUT,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { AxiosRequestOptions } from './types';
 
 export class AxiosRequest implements IBaseRequest {
   private cancelTokenSource: CancelTokenSource | null = null;
+  private http;
+  public interceptors;
+  constructor({ timeout }: AxiosRequestOptions = { timeout: TIMEOUT }) {
+    this.http = axios.create({
+      timeout: timeout,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    this.interceptors = this.http.interceptors;
+  }
   async request<T>(options: IBaseRequestOptions): Promise<T> {
     const { abort, ...rest } = options;
 
@@ -29,7 +35,7 @@ export class AxiosRequest implements IBaseRequest {
     }
 
     // try {
-    const { data } = await http.request<T>(requestOptions);
+    const { data } = await this.http.request<T>(requestOptions);
     return data;
     // } catch (e) {
     //   console.log("e", e);

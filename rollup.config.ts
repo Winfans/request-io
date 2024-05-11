@@ -20,32 +20,17 @@ const dtsOutput = 'index.d.ts';
 const outDir = 'dist';
 
 const packagePath = './packages';
-const corePath = `${packagePath}/core`;
-const corePathInput = `${corePath}/${input}`;
-const requestPath = `${packagePath}/request`;
-const requestPathInput = `${requestPath}/${input}`;
+const packageNames = ['core', 'request'];
 
-const esmRollupConfig = [
-  {
-    input: resolve(corePathInput),
-    output: resolve(`${corePath}/${outDir}/${output}`),
-  },
-  {
-    input: resolve(requestPathInput),
-    output: resolve(`${requestPath}/${outDir}/${output}`),
-  },
-];
+const esmRollupConfig = packageNames.map((name) => ({
+  input: resolve(`${packagePath}/${name}/${input}`),
+  output: resolve(`${packagePath}/${name}/${outDir}/${output}`),
+}));
 
-const dtsRollupConfig = [
-  {
-    input: resolve(corePathInput),
-    output: resolve(`${corePath}/${outDir}/${dtsOutput}`),
-  },
-  {
-    input: resolve(requestPathInput),
-    output: resolve(`${requestPath}/${outDir}/${dtsOutput}`),
-  },
-];
+const dtsRollupConfig = packageNames.map((name) => ({
+  input: resolve(`${packagePath}/${name}/${input}`),
+  output: resolve(`${packagePath}/${name}/${outDir}/${dtsOutput}`),
+}));
 
 const getPlugins = () => {
   return [
